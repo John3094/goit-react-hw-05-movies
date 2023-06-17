@@ -10,9 +10,6 @@ export const SharedLayout = () => {
         <li>
           <NavLink to="movies">Movies</NavLink>
         </li>
-        <li>
-          <NavLink to="movieDetails">MovieDetails</NavLink>
-        </li>
       </ul>
       <main>
         <Outlet />
