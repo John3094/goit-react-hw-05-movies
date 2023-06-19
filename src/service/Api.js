@@ -26,6 +26,16 @@ export const getMovieDetails = async id => {
   // https://api.themoviedb.org/3/movie/697843?api_key=d525f3289f5c138ed98ba04c26330946
 };
 
+export const getMovieCast = async id => {
+  try {
+    const response = await axios.get(`movie/${id}/credits?p=1`);
+    return response.data.cast;
+  } catch (error) {
+    console.log(error.message);
+  }
+  // https://api.themoviedb.org/3/movie/697843/credits?api_key=d525f3289f5c138ed98ba04c26330946
+};
+
 //   const response = await axios.get('', config);
 //   return response.data;
 // };
