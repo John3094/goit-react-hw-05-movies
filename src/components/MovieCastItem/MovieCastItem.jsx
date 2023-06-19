@@ -1,8 +1,6 @@
 export const MovieCastItem = ({
   movieCastItem: { profile_path, name, character },
 }) => {
-  console.log(profile_path);
-
   return (
     <div>
       <p>
@@ -12,6 +10,7 @@ export const MovieCastItem = ({
           'No image'
         )}
       </p>
+      <p>{name}</p>
       <p>Character:{character}</p>
     </div>
   );

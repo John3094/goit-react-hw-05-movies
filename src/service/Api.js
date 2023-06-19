@@ -28,12 +28,30 @@ export const getMovieDetails = async id => {
 
 export const getMovieCast = async id => {
   try {
-    const response = await axios.get(`movie/${id}/credits?p=1`);
+    const response = await axios.get(`movie/${id}/credits`);
     return response.data.cast;
   } catch (error) {
     console.log(error.message);
   }
   // https://api.themoviedb.org/3/movie/697843/credits?api_key=d525f3289f5c138ed98ba04c26330946
+};
+
+export const getMovieReviews = async id => {
+  try {
+    const response = await axios.get(`movie/${id}/reviews`);
+    return response.data.results;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getMovieByName = async query => {
+  try {
+    const response = await axios.get(`search/movie?query=${query}`);
+    return response.data.results;
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 //   const response = await axios.get('', config);
