@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
-import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import { Outlet, useParams, useLocation } from 'react-router-dom';
 import { getMovieDetails } from 'service/Api';
 import { BtnGoBack } from '../../components/BtnGoBack/BtnGoBack';
-import { Movie, Img, MovieaAditionalInfo } from './MovieDetails.styled';
+import { Movie, Img, MovieInfo, NavItem } from './MovieDetails.styled';
 
 const MovieDetails = () => {
   const location = useLocation();
@@ -24,37 +24,35 @@ const MovieDetails = () => {
 
   return (
     <>
-      <div>
-        <h1>MovieDetails:</h1>
-        <BtnGoBack back={backLinkLocationRef.current} />
-        <Movie>
-          {poster_path ? (
-            <Img src={poster_path} alt={title} width="200" />
-          ) : (
-            <img src={noImage} alt={'Noimage'} width="200" />
-          )}
-
-          <div>
-            <h1>{title}</h1>
-            <p>User score: {Math.round(vote_average * 10)}%</p>
-            <h2>Overview</h2>
-            <p>{overview}</p>
-            <h2>Genres</h2>
-            <p>{genres.map(genre => genre.name + ' ')}</p>
-          </div>
-        </Movie>
-        <MovieaAditionalInfo>
-          <ul>
-            <li>
-              <Link to={'cast'}>Cast</Link>
-            </li>
-            <li>
-              <Link to={'reviews'}>Reviews</Link>
-            </li>
-          </ul>
-        </MovieaAditionalInfo>
+      <BtnGoBack back={backLinkLocationRef.current} />
+      <Movie>
+        {poster_path ? (
+          <Img src={poster_path} alt={title} />
+        ) : (
+          <Img src={noImage} alt={'Noimage'} />
+        )}
+        <div>
+          <h1>{title}</h1>
+          <p>User score: {Math.round(vote_average * 10)}%</p>
+          <h2>Overview</h2>
+          <p>{overview}</p>
+          <h2>Genres</h2>
+          <p>{genres.map(genre => genre.name + ' ')}</p>
+        </div>
+      </Movie>
+      <MovieInfo>
+        <ul>
+          <li>
+            <NavItem to="cast">Cast</NavItem>
+          </li>
+          <li>
+            <NavItem to="reviews">Reviews</NavItem>
+          </li>
+        </ul>
+      </MovieInfo>
+      <Suspense fallback={<div>Loading...</div>}>
         <Outlet />
-      </div>
+      </Suspense>
     </>
   );
 };

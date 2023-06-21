@@ -1,22 +1,46 @@
+import { MoviesList } from 'components/MoviesList/MoviesList';
 import { useState, useEffect } from 'react';
-import { useSearchParams, useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { getMovieByName } from '../../service/Api';
+import { SearchBox, Input, Label, Button } from './Movies.styled';
 
 const Movies = () => {
-  const [movies, SetMovies] = useState([]);
-  const location = useLocation();
+  const [movies, setMovies] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
-  const movieId = searchParams.get('movieId');
+  const [value, setValue] = useState(() => searchParams.get('query') ?? '');
+  const query = searchParams.get('query');
+
+  const updateQueryString = e => {
+    e.preventDefault();
+    if (value === '') {
+      return setSearchParams({});
+    }
+    setSearchParams({ query: value });
+  };
+
+  useEffect(() => {
+    if (!query) {
+      return;
+    }
+    getMovieByName(query).then(setMovies);
+  }, [query]);
+
+  const hadleInputChange = e => {
+    setValue(e.target.value);
+  };
 
   return (
-    <div>
-      Movies
-      <input
-        type="text"
-        // value={movieId}
-        onChange={e => setSearchParams({ movie: e.target.value })}
-      />
-    </div>
+    <SearchBox>
+      <Label>Movies</Label>
+      <form autoComplete="off" onSubmit={updateQueryString}>
+        <Input type="text" value={value} onChange={hadleInputChange} />
+        <Button type="submit">Search</Button>
+      </form>
+      {movies && <MoviesList movies={movies} />}
+      {movies && movies.length === 0 && (
+        <div>There are not movies with such name</div>
+      )}
+    </SearchBox>
   );
 };
 
