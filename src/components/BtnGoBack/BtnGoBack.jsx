@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from './BtnGoBack.styled';
+import PropTypes from 'prop-types';
 
 export const BtnGoBack = ({ back }) => {
   const navigate = useNavigate();
@@ -9,4 +10,8 @@ export const BtnGoBack = ({ back }) => {
       Go Back
     </Button>
   );
+};
+
+BtnGoBack.propTypes = {
+  back: PropTypes.array.isRequired,
 };

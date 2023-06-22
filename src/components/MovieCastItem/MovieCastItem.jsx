@@ -1,5 +1,6 @@
 import { IMAGE_URL } from '../../service/Api';
 import { Img } from './MovieCastItem.styled';
+import PropTypes from 'prop-types';
 
 export const MovieCastItem = ({
   movieCastItem: { profile_path, name, character },
@@ -21,4 +22,12 @@ export const MovieCastItem = ({
       <p>Character:{character}</p>
     </div>
   );
+};
+
+MovieCastItem.propTypes = {
+  movieCastItem: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    profile_path: PropTypes.string,
+    character: PropTypes.string,
+  }),
 };
