@@ -13,5 +13,5 @@ export const BtnGoBack = ({ back }) => {
 };
 
 BtnGoBack.propTypes = {
-  back: PropTypes.array.isRequired,
+  back: PropTypes.object.isRequired,
 };
