@@ -1,3 +1,6 @@
+import { IMAGE_URL } from '../../service/Api';
+import { Img } from './MovieCastItem.styled';
+
 export const MovieCastItem = ({
   movieCastItem: { profile_path, name, character },
 }) => {
@@ -5,9 +8,13 @@ export const MovieCastItem = ({
     <div>
       <p>
         {profile_path ? (
-          <img src={profile_path} alt={name} width="100" />
+          <Img src={`${IMAGE_URL}${profile_path}`} alt={name} width="100" />
         ) : (
-          'No image'
+          <Img
+            src={`https://banffventureforum.com/wp-content/uploads/2019/08/No-Image.png`}
+            alt="face"
+            width="100"
+          />
         )}
       </p>
       <p>{name}</p>

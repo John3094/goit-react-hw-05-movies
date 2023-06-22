@@ -3,12 +3,14 @@ import { NavLink } from 'react-router-dom';
 
 export const Movie = styled.div`
   display: flex;
+  width: 650px;
+  height: 600px;
   padding: 10px;
   border-bottom: 1px solid grey;
 `;
 
 export const Img = styled.img`
-  width: 200px;
+  width: 100%;
   margin-right: 15px;
 `;
 

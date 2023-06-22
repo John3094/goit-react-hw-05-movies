@@ -6,6 +6,8 @@ axios.defaults.params = {
   language: 'en-US',
 };
 
+export const IMAGE_URL = 'https://image.tmdb.org/t/p/w300/';
+
 export const getMoviesTrend = async period => {
   try {
     const response = await axios.get(`trending/movie/${period}`);

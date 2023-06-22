@@ -3,6 +3,7 @@ import { Outlet, useParams, useLocation } from 'react-router-dom';
 import { getMovieDetails } from 'service/Api';
 import { BtnGoBack } from '../../components/BtnGoBack/BtnGoBack';
 import { Movie, Img, MovieInfo, NavItem } from './MovieDetails.styled';
+import { IMAGE_URL } from '../../service/Api';
 
 const MovieDetails = () => {
   const location = useLocation();
@@ -27,7 +28,7 @@ const MovieDetails = () => {
       <BtnGoBack back={backLinkLocationRef.current} />
       <Movie>
         {poster_path ? (
-          <Img src={poster_path} alt={title} />
+          <Img src={`${IMAGE_URL}${poster_path}`} alt={title} />
         ) : (
           <Img src={noImage} alt={'Noimage'} />
         )}
