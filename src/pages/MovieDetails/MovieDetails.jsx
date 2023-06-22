@@ -4,17 +4,31 @@ import { getMovieDetails } from 'service/Api';
 import { BtnGoBack } from '../../components/BtnGoBack/BtnGoBack';
 import { Movie, Img, MovieInfo, NavItem } from './MovieDetails.styled';
 import { IMAGE_URL } from '../../service/Api';
+import toast, { Toaster } from 'react-hot-toast';
+import { Loader } from '../../components/Loader/Loader';
 
 const MovieDetails = () => {
   const location = useLocation();
   const backLinkLocationRef = useRef(location.state?.from ?? '/');
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const [isLoding, setIsLoading] = useState(false);
   const noImage =
     'https://www.escapeauthority.com/wp-content/uploads/2116/11/No-image-found.jpg';
 
   useEffect(() => {
-    getMovieDetails(movieId).then(setMovie);
+    const featchMovie = async () => {
+      try {
+        setIsLoading(true);
+        const movie = await getMovieDetails(movieId);
+        setMovie(movie);
+      } catch (error) {
+        toast.error("This didn't work, try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    featchMovie();
   }, [movieId]);
 
   if (!movie) {
@@ -51,7 +65,10 @@ const MovieDetails = () => {
           </li>
         </ul>
       </MovieInfo>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Toaster
+        toastOptions={{ style: { background: '#ff1111', color: '#fff' } }}
+      />
+      <Suspense fallback={isLoding && <Loader />}>
         <Outlet />
       </Suspense>
     </>
